@@ -187,6 +187,26 @@ function type() {
 }
 type();
 </script>
+<!-- FIREBASE CONNECT -->
+<script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore-compat.js"></script>
 
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyAXsIo5F1RY1D5U0Q6ejkf-wxWxeX_YzjI",
+  authDomain: "ephytech-empire.firebaseapp.com",
+  projectId: "ephytech-empire",
+  storageBucket: "ephytech-empire.firebasestorage.app",
+  messagingSenderId: "478962633581",
+  appId: "1:478962633581:web:d1ae6029943ab4873fe864",
+  measurementId: "G-JEQVW7L6D9"
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+</script>
+    
 </body>
 </html>
