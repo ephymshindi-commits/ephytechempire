@@ -1,212 +1,242 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EPHYTECH | THE EMPIRE</title>
-    <style>
-        :root {
-            --primary: #00FF41;
-            --accent: #FF3131;
-            --bg: #050505;
-            --card: #0d0d0d;
-            --text: #e0e0e0;
-            --glitch: drop-shadow(0px 0px 25px rgba(0, 255, 65, 0.8));
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EPHYTECH EMPIRE</title>
 
-        * { box-sizing: border-box; scroll-behavior: smooth; }
-        body { margin: 0; font-family: 'Courier New', monospace; background: var(--bg); color: var(--text); overflow-x: hidden; }
+<style>
+:root {
+    --primary: #00eaff;
+    --accent: #ff3b3b;
+    --bg: #050505;
+    --card: #0d0d0d;
+    --text: #e0e0e0;
+}
 
-        body::after {
-            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.3) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
-            z-index: 9999; background-size: 100% 3px, 3px 100%; pointer-events: none;
-        }
+body {
+    margin: 0;
+    font-family: 'Courier New', monospace;
+    background: var(--bg);
+    color: var(--text);
+}
 
-        header { text-align: center; padding: 150px 20px; background: radial-gradient(circle at center, #111 0%, #050505 100%); }
-        .logo { 
-            width: 600px;
-            max-width: 95%; margin-bottom: 50px; 
-            filter: var(--glitch); animation: flicker 4s infinite alternate; 
-        }
-        @keyframes flicker { 
-            0% { opacity: 0.9; transform: scale(1); } 
-            100% { opacity: 1; transform: scale(1.05); filter: brightness(1.6) var(--glitch); } 
-        }
+header {
+    text-align:center;
+    padding:40px;
+    border-bottom:1px solid #111;
+}
 
-        h1 { font-size: 4.5rem; color: var(--primary); letter-spacing: 12px; text-transform: uppercase; margin: 0; text-shadow: 0 0 20px var(--primary); }
-        .typing { min-height: 40px; color: #888; font-size: 1.6rem; margin-top: 20px; }
+#user-bar {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:10px 20px;
+    background:#0a0a0a;
+    border-bottom:1px solid #111;
+}
 
-        .map-section { text-align: center; padding: 50px; background: #000; border-y: 1px solid #1a1a1a; }
-        .map-box { height: 300px; background: url('https://kaspersky.com') center/cover; position: relative; border: 1px solid var(--primary); opacity: 0.6; }
+#user-info {
+    font-size:14px;
+    color: var(--primary);
+}
 
-        .section-title { text-align: center; margin: 120px 0 60px; color: var(--primary); font-size: 2.8rem; text-transform: uppercase; letter-spacing: 8px; }
+#admin-panel {
+    display:none;
+    position:fixed;
+    right:20px;
+    top:80px;
+    width:320px;
+    background:#000;
+    border:1px solid var(--primary);
+    padding:20px;
+    z-index:9999;
+}
 
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 50px; max-width: 1500px; margin: auto; padding: 0 50px; }
+#login-modal {
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.9);
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
 
-        .card { background: var(--card); padding: 50px; border: 1px solid #1a1a1a; transition: 0.5s; position: relative; }
+.modal-box {
+    background:#000;
+    padding:40px;
+    text-align:center;
+    border:2px solid var(--primary);
+}
 
-        .card:hover { border-color: var(--primary); box-shadow: 0 0 50px rgba(0, 255, 65, 0.3); transform: translateY(-15px); }
+button {
+    padding:12px 25px;
+    border:2px solid var(--primary);
+    background:transparent;
+    color:var(--primary);
+    cursor:pointer;
+    margin:5px;
+}
 
-        .price { font-size: 3.2rem; font-weight: 900; color: #fff; margin: 30px 0; border-left: 8px solid var(--primary); padding-left: 25px; }
+button:hover {
+    background:var(--primary);
+    color:#000;
+}
 
-        .card h3 { color: var(--primary); font-size: 1.8rem; }
+.grid {
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));
+    gap:30px;
+    padding:40px;
+}
 
-        ul { list-style: none; padding: 0; margin: 30px 0; }
+.card {
+    background:var(--card);
+    padding:30px;
+    border:1px solid #222;
+}
 
-        li { margin: 12px 0; color: #bbb; }
-
-        li::before { content: "[EXEC] "; color: var(--primary); }
-
-        .btn { 
-            display: block; text-align: center; border: 3px solid var(--primary); 
-            color: var(--primary); padding: 22px; text-decoration: none; font-weight: 900;
-            text-transform: uppercase; letter-spacing: 5px;
-        }
-
-        .btn:hover { background: var(--primary); color: #000; }
-
-        .btn-exploit { border-color: var(--accent); color: var(--accent); }
-
-        .btn-exploit:hover { background: var(--accent); color: #fff; }
-
-        .testimonials { background: #080808; padding: 100px 50px; text-align: center; }
-
-        footer { text-align: center; padding: 100px; color: #444; }
-
-    </style>
+.price {
+    font-size:1.8rem;
+    margin:15px 0;
+}
+</style>
 </head>
+
 <body>
 
+<div id="user-bar">
+    <div id="user-info">Not logged in</div>
+    <div>
+        <button onclick="toggleAdmin()">Admin</button>
+        <button onclick="logout()">Logout</button>
+    </div>
+</div>
+
+<div id="admin-panel">
+    <h3>Admin Panel</h3>
+    <input id="sName" placeholder="Service name" /><br><br>
+    <input id="sPrice" placeholder="Price" /><br><br>
+    <input id="sAction" placeholder="Button text" /><br><br>
+    <button onclick="addService()">Add Service</button>
+    <button onclick="toggleAdmin()">Close</button>
+</div>
+
+<div id="login-modal">
+    <div class="modal-box">
+        <h2>🔐 Login Required</h2>
+        <button onclick="login()">Login with Google</button>
+        <br><br>
+        <button onclick="closeModal()">Cancel</button>
+    </div>
+</div>
+
 <header>
-    <img src="logo2.png" class="logo">
-    <h1>EPHYTECH EMPIRE</h1>
-    <div class="typing" id="typing"></div>
+    <h1>🔥 EPHYTECH EMPIRE</h1>
 </header>
 
-<div class="map-section">
-    <div class="map-box"></div>
-</div>
+<h2 style="text-align:center;">💀 Services</h2>
 
-<h2 class="section-title">💀 offensive_ops</h2>
-<div class="grid">
+<div class="grid" id="serviceGrid"></div>
 
-    <div class="card" style="border-color: var(--accent);">
-        <h3 style="color: var(--accent);">Account Exploitation</h3>
-        <p>Targeted adversarial testing and credential verification protocols.</p>
-        <div class="price">KES 15,000</div>
-        <a href="https://wa.me/254114419282?text=Hello%20I%20want%20Account%20Exploitation%20service%20from%20EPHYTECH" class="btn btn-exploit">
-        INITIATE_EXPLOIT
-        </a>
-    </div>
-
-    <div class="card">
-        <h3>Penetration Testing</h3>
-        <p>Full-spectrum network infiltration and vulnerability mapping.</p>
-        <div class="price">KES 50,000</div>
-        <a href="https://wa.me/254114419282?text=Hello%20I%20want%20Penetration%20Testing%20service%20from%20EPHYTECH" class="btn">
-        RUN_RECON
-        </a>
-    </div>
-
-</div>
-
-<h2 class="section-title">🧠 academy_&_intel</h2>
-<div class="grid">
-
-    <div class="card">
-        <h3>Computer Projects</h3>
-        <p>High-tier KCSE project architecture and full documentation.</p>
-        <div class="price">KES 3,000</div>
-        <a href="https://wa.me/254114419282?text=Hello%20I%20need%20Computer%20Project%20help%20from%20EPHYTECH" class="btn">
-        DOWNLOAD_PROJECT
-        </a>
-    </div>
-
-    <div class="card">
-        <h3>Income Education</h3>
-        <p>Global gig-economy strategies for elite tech monetization.</p>
-        <div class="price">KES 10,000</div>
-        <a href="https://wa.me/254114419282?text=Hello%20I%20want%20Income%20Education%20program%20from%20EPHYTECH" class="btn">
-        ACCESS_GIG_VAULT
-        </a>
-    </div>
-
-</div>
-
-<h2 class="section-title">🛡️ hardened_systems</h2>
-<div class="grid">
-
-    <div class="card">
-        <h3>Secure Web Dev</h3>
-        <ul>
-            <li>Custom Brand Infrastructure</li>
-            <li>Database Hardening</li>
-        </ul>
-        <div class="price">KES 25,000</div>
-        <a href="https://wa.me/254114419282?text=Hello%20I%20want%20Secure%20Web%20Development%20service%20from%20EPHYTECH" class="btn">
-        COMMENCE_BUILD
-        </a>
-    </div>
-
-    <div class="card">
-        <h3>Malware Sanitization</h3>
-        <ul>
-            <li>Deep Forensics Cleanup</li>
-            <li>SSL/TLS Deployment</li>
-        </ul>
-        <div class="price">KES 15,000</div>
-        <a href="https://wa.me/254114419282?text=Hello%20I%20need%20Malware%20Sanitization%20service%20from%20EPHYTECH" class="btn">
-        CLEANSE_SERVER
-        </a>
-    </div>
-
-</div>
-
-<footer>
-SYSTEM_ONLINE | 2026_EMPIRE_PROTOCOL
-</footer>
-
-<script>
-const words = ["PENETRATING_SECURE_NODE...", "ENCRYPTING_SYSTEM_ROOT...", "EXPLOIT_PAYLOAD_READY", "WELCOME_TO_THE_EMPIRE"];
-let i = 0, j = 0, cur = "", del = false;
-
-function type() {
-    let el = document.getElementById("typing");
-    if (i < words.length) {
-        if (!del && j <= words[i].length) cur = words[i].substring(0, j++);
-        else if (del && j >= 0) cur = words[i].substring(0, j--);
-
-        el.textContent = "> " + cur + "_";
-
-        if (j == words[i].length) del = true;
-        if (j == 0) { del = false; i++; }
-    } else i = 0;
-
-    setTimeout(type, del ? 50 : 120);
-}
-type();
-</script>
-<!-- FIREBASE CONNECT -->
 <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore-compat.js"></script>
 
 <script>
 const firebaseConfig = {
   apiKey: "AIzaSyAXsIo5F1RY1D5U0Q6ejkf-wxWxeX_YzjI",
   authDomain: "ephytech-empire.firebaseapp.com",
-  projectId: "ephytech-empire",
-  storageBucket: "ephytech-empire.firebasestorage.app",
-  messagingSenderId: "478962633581",
-  appId: "1:478962633581:web:d1ae6029943ab4873fe864",
-  measurementId: "G-JEQVW7L6D9"
+  projectId: "ephytech-empire"
 };
 
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
-const db = firebase.firestore();
+
+const admins = ["admin@ephytech.com"];
+
+let selectedService = "";
+
+let services = JSON.parse(localStorage.getItem("services")) || [
+    {name:"Cyber Awareness Training", price:"KES 5,000", action:"ENROLL"},
+    {name:"Phishing Protection", price:"KES 4,000", action:"PROTECT"},
+    {name:"Freelancing Setup", price:"KES 2,500", action:"LEARN"}
+];
+
+function renderServices(){
+    const grid = document.getElementById("serviceGrid");
+    grid.innerHTML = "";
+
+    services.forEach(s => {
+        const div = document.createElement("div");
+        div.className = "card";
+        div.innerHTML = `
+            <h3>${s.name}</h3>
+            <div class="price">${s.price}</div>
+            <button onclick="secureAction('${s.name}')">${s.action}</button>
+        `;
+        grid.appendChild(div);
+    });
+}
+
+renderServices();
+
+auth.onAuthStateChanged(user => {
+    if(user){
+        document.getElementById("user-info").innerText = "Logged in: " + user.email;
+        if(admins.includes(user.email)){
+            document.getElementById("admin-panel").style.display = "block";
+        }
+        closeModal();
+    } else {
+        document.getElementById("user-info").innerText = "Not logged in";
+    }
+});
+
+function login(){
+    const provider = new firebase.auth.GoogleAuthProvider();
+    auth.signInWithPopup(provider).then(()=>proceed()).catch(e=>alert(e.message));
+}
+
+function logout(){ auth.signOut(); }
+
+function secureAction(service){
+    selectedService = service;
+    if(auth.currentUser) proceed();
+    else document.getElementById("login-modal").style.display = "flex";
+}
+
+function closeModal(){
+    document.getElementById("login-modal").style.display = "none";
+}
+
+function proceed(){
+    closeModal();
+    const msg = encodeURIComponent("Hello I want " + selectedService);
+    window.location.href = "https://wa.me/254114419282?text=" + msg;
+}
+
+function toggleAdmin(){
+    const panel = document.getElementById("admin-panel");
+    panel.style.display = panel.style.display === "block" ? "none" : "block";
+}
+
+function addService(){
+    const name = document.getElementById("sName").value;
+    const price = document.getElementById("sPrice").value;
+    const action = document.getElementById("sAction").value;
+
+    if(!name || !price || !action) return alert("Fill all fields");
+
+    services.push({name, price, action});
+    localStorage.setItem("services", JSON.stringify(services));
+    renderServices();
+    toggleAdmin();
+}
 </script>
-    
+
 </body>
 </html>
